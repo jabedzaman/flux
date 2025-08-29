@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-flux-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-flux-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-flux-app
+    spec:
+      containers:
+        - name: nodejs-flux-container
+          image: localhost:9000/nodejs-flux-app:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-flux-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nodejs-flux-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

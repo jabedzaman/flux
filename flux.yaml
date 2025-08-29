@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: nodejs-flux-repo
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: https://github.com/jabedzaman/flux
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: nodejs-flux-kustomization
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: "./"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: nodejs-flux-repo
+  targetNamespace: default
