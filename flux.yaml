@@ -20,5 +20,5 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: nodejs-flux-repo
+    name: flux
   targetNamespace: default
